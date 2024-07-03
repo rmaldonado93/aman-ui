@@ -1,0 +1,122 @@
+import React, { useRef, useState } from "react";
+import { CiLock } from "react-icons/ci";
+import { flagImage, logoImage, tandymImage } from "../assets";
+
+
+/*
+  TODO: refactor using the composable pattern
+    - add the proper type for event
+    - extract the input change logic into its own function
+    - use formik for form handling
+    - use the user context to share the user data to save the Phone Number
+*/
+
+const VerifySignin = () => {
+  const [isInputFocused, setInputFocused] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const inputRef = useRef(null);
+
+  const handleInputChange = (event) => {
+    const input = event.target.value.replace(/\D/g, "");
+    let formattedNumber = input;
+
+    if (input.length > 6) {
+      formattedNumber = `(${input.slice(0, 3)}) ${input.slice(
+        3,
+        6
+      )} - ${input.slice(6, 10)}`;
+    } else if (input.length > 3) {
+      formattedNumber = `(${input.slice(0, 3)}) ${input.slice(3, 6)}`;
+    } else if (input.length > 0) {
+      formattedNumber = `(${input}`;
+    }
+
+    setPhoneNumber(formattedNumber);
+
+    if (input.length >= 10) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+
+    if (input.length > 0) {
+      setInputFocused(true);
+    }
+  };
+
+  const handleInputFocus = () => {
+    setInputFocused(true);
+  };
+
+  const handleInputBlur = () => {
+    if (phoneNumber.length === 0) {
+      setInputFocused(false);
+    }
+  };
+
+  return (
+    <main className="w-full sm:w-[24rem] mx-auto">
+      <div className=" pt-4 text-center">
+        <div className="mx-auto px-3">
+          <div className="relative">
+            <img src={logoImage} className="w-28 mx-auto" />
+          </div>
+        </div>
+        <div className="border-y border-gray-200 mt-5 text-xs font-medium text-gray-500 py-1 flex justify-center items-center gap-1">
+          <span>
+            <CiLock fontSize={15} />
+          </span>
+          Secured and powered by <img src={tandymImage} className="h-3" />
+        </div>
+        <section className="text-black px-3">
+          <p className="text-[1.5rem]  sm:text-[1.6rem] leading-8 text-black font-bold  mt-8 text-left">
+            Your phone number is your digital card
+          </p>
+          <p className="mt-2 text-left text-base text-TextColor font-medium w-[90%]">
+            We use your phone number to securely identify you only when you log
+            in and pay.
+          </p>
+
+          <div className="relative border-t-[16px] rounded-t-md input-container mt-4">
+            <span
+              className={`absolute inset-y-0 left-0 flex items-center pl-4 ${isInputFocused ? "opacity-100" : "opacity-0"}`}
+            >
+              <img src={flagImage} className="w-5 h-4" />
+            </span>
+            <input
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
+              onChange={handleInputChange}
+              ref={inputRef}
+              type="text"
+              name="phone"
+              id="phone"
+              value={phoneNumber}
+              className="peer h-10 text-sm w-full bg-transparent pl-10  text-gray-900 placeholder-transparent focus:outline-none  border-b  border-gray-500 focus:border-b-2 focus:border-black font-normal"
+              placeholder="(200) 106 - 2105"
+            />
+            <label
+              htmlFor="phone"
+              className="absolute left-4 -top-2  text-xs transition-all peer-placeholder-shown:text-sm  peer-placeholder-shown:top-2 peer-focus:-top-2  peer-focus:text-xs input-label"
+            >
+            Mobile Phone Number
+            </label>
+          </div>
+
+          {showButton ? (
+            <button className="bg-black  cursor-pointer border-none  mx-auto text-base font-semibold w-full text-white rounded-3xl py-2 mt-20">
+              Continue
+            </button>
+          ) : (
+            <button className="bg-disableBtn opacity-[0.5] hover:opacity-100 hover:bg-[#8a9a9b] cursor-default border-none  mx-auto text-base font-semibold  w-full text-white rounded-3xl py-2  mt-20">
+              Continue
+            </button>
+          )}
+        </section>
+      </div>
+    </main>
+  );
+};
+
+export default VerifySignin;

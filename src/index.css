@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @import url('https://fonts.googleapis.com/css2?family=Average+Sans&display=swap'); */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+
+body {
+  margin: 0;
+
+  /* This is for the first import url */
+  /* font-family: "Average Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal; */
+
+
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+/* code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+
+
+/* ANIMATION INPUT */
+ 
+.input-label{
+  color: rgb(79, 81, 81);
+  font: 400 14px / 20px
+}
+
+.input-container {
+  background-color: #F9F9F9;
+  border-color: #F9F9F9;
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+.input-container:focus-within {
+  background-color: #EFEFEF; /* Slightly darker shade for focus */
+  border-color: #EFEFEF; /* Slightly darker shade for focus */
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #F9F9F9 inset !important; /* Override the background color */
+  -webkit-text-fill-color: #000 !important; /* Ensure text color is correct */
+}
+
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #EFEFEF inset !important; /* Override the background color on focus */
+  -webkit-text-fill-color: #000 !important; /* Ensure text color is correct */
+}
+
+input[type='checkbox'] {
+    background-color: black;
+    border: 2px solid black;
+  }
+  
+  input[type='checkbox']:checked {
+    background-color: black;
+    border-color: black;
+  }
+  
+
+
+
+
+
+
+
+  /* COLORED CHANGE INPUT */
+  /* Hide the default checkbox */
+/* Hide the default checkbox */
+.custom-checkbox input[type="checkbox"] {
+  display: none;
+}
+
+/* Create a custom checkbox */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1rem;
+  user-select: none;
+}
+
+/* The checkmark */
+.custom-checkbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 28px;
+  width: 28px;
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 5px; /* Optional: for rounded corners */
+}
+
+/* On mouse-over, add a background color */
+.custom-checkbox:hover .checkmark {
+  background-color: white;
+  border: 2px solid black;
+}
+
+/* When the checkbox is checked, add a black background */
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: black; 
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.custom-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator and center it */
+.custom-checkbox .checkmark:after {
+  left: 50%;
+  top: 40%;
+  width: 8px;
+  height: 14px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
